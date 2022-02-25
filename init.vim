@@ -56,7 +56,6 @@ Plug 'airblade/vim-gitgutter'        " shows git changes in gutter
 Plug 'easymotion/vim-easymotion'     " go to any word quickly '\\w', '\\e', '\\b'
 Plug 'KKPMW/vim-sendtowindow'        " send commands to REPL
 Plug 'yuttie/comfortable-motion.vim' " scrolling 'C-d' or 'C-u'
-Plug 'jalvesaq/Nvim-R'               " required for ncm-R
 Plug 'dense-analysis/ale'            " linting [dep]: pip3 install flake8, install.packages('lintr')
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'mhinz/vim-startify'            " A start menu for vim
@@ -68,6 +67,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " auto completion
+Plug 'jalvesaq/Nvim-R'               " required for ncm-R
 Plug 'ncm2/ncm2'                     " completion [dep]: nvim-0.2.2, nvim-yarp, python3
 Plug 'ncm2/ncm2-bufword'             " complete words in buffer
 Plug 'roxma/nvim-yarp'               " remote plugin framework required for ncm2Plug 'gaalcaras/ncm-R'               
@@ -76,8 +76,6 @@ Plug 'ncm2/ncm2-path'                " complete paths
 Plug 'filipekiss/ncm2-look.vim'      " ncm2 spelling
 Plug 'ncm2/ncm2-ultisnips'           " load ultisnips 
 Plug 'SirVer/ultisnips'              " hotkeys for chunks of code
-Plug 'honza/vim-snippets'            " commmon snippets
-
 " pandoc 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'rwxrob/vim-pandoc-syntax-simple'
@@ -93,7 +91,7 @@ call plug#end()
  endif
 
 " ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-f>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
@@ -105,10 +103,10 @@ set termguicolors
 
 " nvim-r
 set ma
-let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,shiny'
 let maplocalleader = ',' " Change Leader and LocalLeader keys:
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
+
 " telescope
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-o> <cmd>lua require('telescope.builtin').buffers()<cr>
@@ -118,7 +116,7 @@ nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
 let g:ncm2_look_enabled = 0
 
 " ncm2 
-autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
+"autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
 
 inoremap <expr> j pumvisible() ? "\<C-n>" : "\<Tab>"
