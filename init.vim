@@ -26,10 +26,17 @@ set clipboard=unnamedplus
 " leader key
 let mapleader = " "
 
-"brackets
+" brackets
 set showmatch
 
-" tab nav
+" terminal
+map <Leader>tr :new term://zsh<CR><C-\><C-n><C-w>k
+tnoremap <leader><Esc> <C-\><C-n>
+
+" enable omni-completion
+set omnifunc=syntaxcomplete#Complete
+
+" window nav
 map <leader>nt :tabnew<cr>    " To create a new tab.
 map <leader>to :tabonly<cr>     " To close all other tabs (show only the current tab).
 map <leader>tc :tabclose<cr>    " To close the current tab.
@@ -37,8 +44,6 @@ map <leader>tm :tabmove<cr>     " To move the current tab to next position.
 map <leader>tn :tabn<cr>        " To swtich to next tab.
 map <leader>tp :tabp<cr>        " To switch to previous tab.
 
-" terminal mode remap
-:tnoremap <leader><Esc> <C-\><C-n>
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -71,10 +76,14 @@ Plug 'honza/vim-snippets'            " commmon snippets
 Plug 'ncm2/ncm2-path'                " complete paths
 Plug 'filipekiss/ncm2-look.vim'      " ncm2 spelling
 Plug 'ncm2/ncm2-ultisnips'           " load ultisnips 
+Plug 'sheerun/vim-polyglot'
+
+" pandoc 
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'rwxrob/vim-pandoc-syntax-simple'
+
 call plug#end()
 
- " Change Leader and LocalLeader keys:
- let maplocalleader = ','
 
  " Use Ctrl+Space to do omni completion:
  if has('nvim') || has('gui_running')
@@ -96,7 +105,10 @@ set termguicolors
 
 " nvim-r
 set ma
-
+let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,shiny'
+let maplocalleader = ',' " Change Leader and LocalLeader keys:
+vmap <Space> <Plug>RDSendSelection
+nmap <Space> <Plug>RDSendLine
 " telescope
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-o> <cmd>lua require('telescope.builtin').buffers()<cr>
@@ -104,7 +116,6 @@ nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
 
 " ncm2-loom
 let g:ncm2_look_enabled = 0
-
 
 " ncm2 
 autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
@@ -161,7 +172,9 @@ let g:ale_fixers={'python': ['black']}
 " lightline 
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'gruvbox',	
+	    \   'fugitive': 'LightlineFugitive',
+      \   'filename': 'LightlineFilename',
       \ }
 
 " gitgutter
@@ -189,6 +202,24 @@ map <Leader>- 5<c-w>>
 " Change 2 split windows from vert to horiz or horiz to vert
 map <Leader>th <C-w>t<C-w>H
 map <Leader>tk <C-w>t<C-w>K
+
+set fo-=t   " don't auto-wrap text using text width
+set fo+=c   " autowrap comments using textwidth with leader
+set fo-=r   " don't auto-insert comment leader on enter in insert
+set fo-=o   " don't auto-insert comment leader on o/O in normal
+set fo+=q   " allow formatting of comments with gq
+set fo-=w   " don't use trailing whitespace for paragraphs
+set fo-=a   " disable auto-formatting of paragraph changes
+set fo-=n   " don't recognized numbered lists
+set fo+=j   " delete comment prefix when joining
+set fo-=2   " don't use the indent of second paragraph line
+set fo-=v   " don't use broken 'vi-compatible auto-wrapping'
+set fo-=b   " don't use broken 'vi-compatible auto-wrapping'
+set fo+=l   " long lines not broken in insert mode
+set fo+=m   " multi-byte character line break support
+set fo+=M   " don't add space before or after multi-byte char
+set fo-=B   " don't add space between two multi-byte chars
+set fo+=1   " don't break a line after a one-letter word
 
 " Function for toggling the bottom statusbar:
 let s:hidden_all = 1
