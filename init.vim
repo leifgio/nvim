@@ -76,7 +76,6 @@ Plug 'honza/vim-snippets'            " commmon snippets
 Plug 'ncm2/ncm2-path'                " complete paths
 Plug 'filipekiss/ncm2-look.vim'      " ncm2 spelling
 Plug 'ncm2/ncm2-ultisnips'           " load ultisnips 
-Plug 'sheerun/vim-polyglot'
 
 " pandoc 
 Plug 'vim-pandoc/vim-pandoc'
