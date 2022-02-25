@@ -70,12 +70,13 @@ Plug 'nvim-telescope/telescope.nvim'
 " auto completion
 Plug 'ncm2/ncm2'                     " completion [dep]: nvim-0.2.2, nvim-yarp, python3
 Plug 'ncm2/ncm2-bufword'             " complete words in buffer
-Plug 'roxma/nvim-yarp'               " remote plugin framework required for ncm2Plug 'gaalcaras/ncm-R'               " R completion [dep]: ncm2, Nvim-R
-Plug 'SirVer/ultisnips'              " hotkeys for chunks of code
-Plug 'honza/vim-snippets'            " commmon snippets
+Plug 'roxma/nvim-yarp'               " remote plugin framework required for ncm2Plug 'gaalcaras/ncm-R'               
+Plug 'gaalcaras/ncm-R'               " R autocomplete
 Plug 'ncm2/ncm2-path'                " complete paths
 Plug 'filipekiss/ncm2-look.vim'      " ncm2 spelling
 Plug 'ncm2/ncm2-ultisnips'           " load ultisnips 
+Plug 'SirVer/ultisnips'              " hotkeys for chunks of code
+Plug 'honza/vim-snippets'            " commmon snippets
 
 " pandoc 
 Plug 'vim-pandoc/vim-pandoc'
