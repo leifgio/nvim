@@ -1,7 +1,7 @@
 autocmd!
 
-runtime ./plug.vim
 runtime ./maps.vim
+runtime ./plug.vim
 
 " general
 set updatetime=100 
