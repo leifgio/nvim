@@ -30,20 +30,25 @@ let mapleader = " "
 set showmatch
 
 " terminal
-map <Leader>tr :new term://zsh<CR><C-\><C-n><C-w>k
+map <leader>tr :new term://zsh<CR><C-\><C-n><C-w>k
 tnoremap <leader><Esc> <C-\><C-n>
 
-" enable omni-completion
-set omnifunc=syntaxcomplete#Complete
+" Windows
 
-" window nav
-map <leader>nt :tabnew<cr>    " To create a new tab.
-map <leader>to :tabonly<cr>     " To close all other tabs (show only the current tab).
-map <leader>tc :tabclose<cr>    " To close the current tab.
-map <leader>tm :tabmove<cr>     " To move the current tab to next position.
-map <leader>tn :tabn<cr>        " To swtich to next tab.
-map <leader>tp :tabp<cr>        " To switch to previous tab.
-
+" Split window
+nmap ss :split<Return><C-w>w
+nmap sv :vsplit<Return><C-w>w
+" Move window
+nmap <Space> <C-w>w
+map sh <C-w>h
+map sk <C-w>k
+map sj <C-w>j
+map sl <C-w>l
+" Resize window
+nmap <C-w>h <C-w><
+nmap <C-w>l <C-w>>
+nmap <C-w>k <C-w>+
+nmap <C-w>j <C-w>-
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -66,16 +71,11 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-" auto completion
+" r related
 Plug 'jalvesaq/Nvim-R'               " required for ncm-R
-Plug 'ncm2/ncm2'                     " completion [dep]: nvim-0.2.2, nvim-yarp, python3
-Plug 'ncm2/ncm2-bufword'             " complete words in buffer
-Plug 'roxma/nvim-yarp'               " remote plugin framework required for ncm2Plug 'gaalcaras/ncm-R'               
-Plug 'gaalcaras/ncm-R'               " R autocomplete
-Plug 'ncm2/ncm2-path'                " complete paths
-Plug 'filipekiss/ncm2-look.vim'      " ncm2 spelling
-Plug 'ncm2/ncm2-ultisnips'           " load ultisnips 
-Plug 'SirVer/ultisnips'              " hotkeys for chunks of code
+
+" auto completion
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " pandoc 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'rwxrob/vim-pandoc-syntax-simple'
@@ -84,17 +84,17 @@ call plug#end()
 
 
  " Use Ctrl+Space to do omni completion:
- if has('nvim') || has('gui_running')
+"if has('nvim') || has('gui_running')
      inoremap <C-Space> <C-x><C-o>
- else
-     inoremap <Nul> <C-x><C-o>
- endif
+"else
+"    inoremap <Nul> <C-x><C-o>
+" endif
 
 " ultisnips
-let g:UltiSnipsExpandTrigger="<c-f>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsExpandTrigger="<c-f>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsEditSplit="vertical"
 
 "Theme
 colorscheme gruvbox
@@ -104,23 +104,22 @@ set termguicolors
 " nvim-r
 set ma
 let maplocalleader = ',' " Change Leader and LocalLeader keys:
-vmap <Space> <Plug>RDSendSelection
-nmap <Space> <Plug>RDSendLine
+vmap <C-Space> <Plug>RDSendSelection
+nmap <C-Space> <Plug>RDSendLine
 
 " telescope
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-o> <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
 
-" ncm2-loom
-let g:ncm2_look_enabled = 0
-
 " ncm2 
 "autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
-set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
+"set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
 
-inoremap <expr> j pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> k pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
+inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
 
 " turn on spelling and make a spell file
 set spelllang=en_us
@@ -183,19 +182,6 @@ map <C-n> :NERDTreeToggle<CR>
 
 " Window Splits
 set splitbelow splitright
-
-" Remap splits navigation to just CTRL + hjkl
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Make adjusing split sizes a bit more friendly
-map = 3<c-w>+
-map - 3<c-w>-
-map <Leader>= 5<c-w><
-map <Leader>- 5<c-w>>
-
 
 " Change 2 split windows from vert to horiz or horiz to vert
 map <Leader>th <C-w>t<C-w>H
