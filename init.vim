@@ -1,3 +1,8 @@
+autocmd!
+
+runtime ./plug.vim
+runtime ./maps.vim
+
 " general
 set updatetime=100 
 set mouse=a
@@ -33,68 +38,12 @@ set showmatch
 map <leader>tr :new term://zsh<CR><C-\><C-n><C-w>k
 tnoremap <leader><Esc> <C-\><C-n>
 
-" Windows
-
-" Split window
-nmap ss :split<Return><C-w>w
-nmap sv :vsplit<Return><C-w>w
-" Move window
-nmap <Space> <C-w>w
-map sh <C-w>h
-map sk <C-w>k
-map sj <C-w>j
-map sl <C-w>l
-" Resize window
-nmap <C-w>h <C-w><
-nmap <C-w>l <C-w>>
-nmap <C-w>k <C-w>+
-nmap <C-w>j <C-w>-
-
-call plug#begin('~/.config/nvim/plugged')
-
-Plug 'gruvbox-community/gruvbox'
-
-Plug 'scrooloose/nerdtree'           " side bar file tree
-Plug 'itchyny/lightline.vim'         " minimal status bar
-Plug 'tpope/vim-fugitive'            " allows git commands in vim session
-Plug 'airblade/vim-gitgutter'        " shows git changes in gutter
-Plug 'easymotion/vim-easymotion'     " go to any word quickly '\\w', '\\e', '\\b'
-Plug 'KKPMW/vim-sendtowindow'        " send commands to REPL
-Plug 'yuttie/comfortable-motion.vim' " scrolling 'C-d' or 'C-u'
-Plug 'dense-analysis/ale'            " linting [dep]: pip3 install flake8, install.packages('lintr')
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'mhinz/vim-startify'            " A start menu for vim
-Plug 'tpope/vim-surround'            " replace surrounding characters
-
-" telescope requirements...
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
-" r related
-Plug 'jalvesaq/Nvim-R'               " required for ncm-R
-
-" auto completion
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-" pandoc 
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'rwxrob/vim-pandoc-syntax-simple'
-
-call plug#end()
-
-
- " Use Ctrl+Space to do omni completion:
-"if has('nvim') || has('gui_running')
+" Use Ctrl+Space to do omni completion:
+if has('nvim') || has('gui_running')
      inoremap <C-Space> <C-x><C-o>
-"else
-"    inoremap <Nul> <C-x><C-o>
-" endif
-
-" ultisnips
-"let g:UltiSnipsExpandTrigger="<c-f>"
-"let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-"let g:UltiSnipsEditSplit="vertical"
+else
+    inoremap <Nul> <C-x><C-o>
+ endif
 
 "Theme
 colorscheme gruvbox
@@ -111,10 +60,6 @@ nmap <C-Space> <Plug>RDSendLine
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-o> <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
-
-" ncm2 
-"autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
-"set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
 
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -183,9 +128,6 @@ map <C-n> :NERDTreeToggle<CR>
 " Window Splits
 set splitbelow splitright
 
-" Change 2 split windows from vert to horiz or horiz to vert
-map <Leader>th <C-w>t<C-w>H
-map <Leader>tk <C-w>t<C-w>K
 
 set fo-=t   " don't auto-wrap text using text width
 set fo+=c   " autowrap comments using textwidth with leader
@@ -224,3 +166,5 @@ function! ToggleHiddenAll()
 endfunction
 
 nnoremap <leader>h :call ToggleHiddenAll()<CR>
+
+set exrc
