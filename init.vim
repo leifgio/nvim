@@ -1,7 +1,7 @@
 autocmd!
 
-runtime ./maps.vim
 runtime ./plug.vim
+runtime ./maps.vim
 
 " general
 set updatetime=100 
@@ -28,43 +28,17 @@ set wrap
 " clipboard
 set clipboard=unnamedplus
 
-" leader key
-let mapleader = " "
-
 " brackets
 set showmatch
 
-" terminal
-map <leader>tr :new term://zsh<CR><C-\><C-n><C-w>k
-tnoremap <leader><Esc> <C-\><C-n>
+" Window Splits
+set splitbelow splitright
 
-" Use Ctrl+Space to do omni completion:
-if has('nvim') || has('gui_running')
-     inoremap <C-Space> <C-x><C-o>
-else
-    inoremap <Nul> <C-x><C-o>
- endif
 
 "Theme
 colorscheme gruvbox
 set background=dark
 set termguicolors
-
-" nvim-r
-set ma
-let maplocalleader = ',' " Change Leader and LocalLeader keys:
-vmap <C-Space> <Plug>RDSendSelection
-nmap <C-Space> <Plug>RDSendLine
-
-" telescope
-nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <C-o> <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
-
-inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
-inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
 
 " turn on spelling and make a spell file
 set spelllang=en_us
@@ -122,13 +96,6 @@ let g:lightline = {
 " gitgutter
 let g:gitgutter_async=0
 
-" nerdtree settings
-map <C-n> :NERDTreeToggle<CR>
-
-" Window Splits
-set splitbelow splitright
-
-
 set fo-=t   " don't auto-wrap text using text width
 set fo+=c   " autowrap comments using textwidth with leader
 set fo-=r   " don't auto-insert comment leader on enter in insert
@@ -146,25 +113,5 @@ set fo+=m   " multi-byte character line break support
 set fo+=M   " don't add space before or after multi-byte char
 set fo-=B   " don't add space between two multi-byte chars
 set fo+=1   " don't break a line after a one-letter word
-
-" Function for toggling the bottom statusbar:
-let s:hidden_all = 1
-function! ToggleHiddenAll()
-    if s:hidden_all  == 0
-        let s:hidden_all = 1
-        set noshowmode
-        set noruler
-        set laststatus=0
-        set noshowcmd
-    else
-        let s:hidden_all = 0
-        set showmode
-        set ruler
-        set laststatus=2
-        set showcmd
-    endif
-endfunction
-
-nnoremap <leader>h :call ToggleHiddenAll()<CR>
 
 set exrc
